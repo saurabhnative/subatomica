@@ -10,7 +10,7 @@ import {
 } from 'urql';
 import Header from './components/Header';
 const client = new Client({
-  url: 'https://grafbase-test-saurabhnative.grafbase.app/graphql',
+  url: 'https://subatomica-main-saurabhnative.grafbase.app/graphql',
   exchanges: [cacheExchange, fetchExchange],
 });
 
