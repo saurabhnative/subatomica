@@ -77,7 +77,7 @@ function Home() {
             {data &&
               data.contentful.subatomicaBlogPostCollection.items.map((item) => {
                 return (
-                  <div class="p-4 md:w-1/3">
+                  <div class="p-4 md:w-1/3" key={item.postnumber}>
                     <div
                       onClick={() => router.push(`/blog/${item.postnumber}`)}
                       className="cursor-pointer"
