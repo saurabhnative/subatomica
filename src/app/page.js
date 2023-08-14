@@ -38,9 +38,6 @@ function Home() {
     query: GetBlogs,
   });
   const { data, fetching, error } = result;
-  if (fetching) {
-    return <div>Loading...</div>;
-  }
   return (
     <main>
       <Header />
@@ -71,47 +68,64 @@ function Home() {
           </div>
         </div>
       </section>
-      <div className="pb-12 bg-gray-100" id="blogarticles">
-        <div class="container px-5 mx-auto">
-          <div class="flex flex-wrap -m-4">
-            {data &&
-              data.contentful.subatomicaBlogPostCollection.items.map((item) => {
-                return (
-                  <div class="p-4 md:w-1/3" key={item.postnumber}>
-                    <div
-                      onClick={() => router.push(`/blog/${item.postnumber}`)}
-                      className="cursor-pointer"
-                    >
-                      <div class="h-full rounded-xl shadow-cla-blue bg-gradient-to-r from-indigo-50 to-blue-50 overflow-hidden">
-                        <img
-                          class="lg:h-48 md:h-36 w-full object-contain object-center scale-110 transition-all duration-400 hover:scale-100"
-                          src={item.blogImage.url}
-                          alt="blog"
-                        />
-                        <div class="p-6">
-                          <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
-                            Elementary particle
-                          </h2>
-                          <h1 class="title-font text-lg font-medium text-gray-600 mb-3">
-                            {item.blogTitle}
-                          </h1>
-                          <p class="leading-relaxed mb-3 overflow-hidden blog-description">
-                            {item.blogDescription}
-                          </p>
-                          <div class="flex items-center flex-wrap ">
-                            <button class="bg-gradient-to-r from-cyan-400 to-blue-400 hover:scale-105 drop-shadow-md  shadow-cla-blue px-4 py-1 rounded-lg">
-                              Learn more
-                            </button>
+      {fetching ? (
+        <div className="flex justify-center">
+          <div
+            class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+            role="status"
+          >
+            <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+              Loading...
+            </span>
+          </div>
+        </div>
+      ) : (
+        <div className="pb-12 bg-gray-100" id="blogarticles">
+          <div class="container px-5 mx-auto">
+            <div class="flex flex-wrap -m-4">
+              {data &&
+                data.contentful.subatomicaBlogPostCollection.items.map(
+                  (item) => {
+                    return (
+                      <div class="p-4 md:w-1/3" key={item.postnumber}>
+                        <div
+                          onClick={() =>
+                            router.push(`/blog/${item.postnumber}`)
+                          }
+                          className="cursor-pointer"
+                        >
+                          <div class="h-full rounded-xl shadow-cla-blue bg-gradient-to-r from-indigo-50 to-blue-50 overflow-hidden">
+                            <img
+                              class="lg:h-48 md:h-36 w-full object-contain object-center scale-110 transition-all duration-400 hover:scale-100"
+                              src={item.blogImage.url}
+                              alt="blog"
+                            />
+                            <div class="p-6">
+                              <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
+                                Elementary particle
+                              </h2>
+                              <h1 class="title-font text-lg font-medium text-gray-600 mb-3">
+                                {item.blogTitle}
+                              </h1>
+                              <p class="leading-relaxed mb-3 overflow-hidden blog-description">
+                                {item.blogDescription}
+                              </p>
+                              <div class="flex items-center flex-wrap ">
+                                <button class="bg-gradient-to-r from-cyan-400 to-blue-400 hover:scale-105 drop-shadow-md  shadow-cla-blue px-4 py-1 rounded-lg">
+                                  Learn more
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                );
-              })}
+                    );
+                  }
+                )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </main>
   );
 }
